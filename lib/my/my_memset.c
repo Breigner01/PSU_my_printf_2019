@@ -6,12 +6,15 @@
 */
 
 #include <string.h>
+#include <stdlib.h>
 
-void *my_memset(void *i, int j, size_t k)
+int my_strlen(char *);
+
+void *my_memset(void *ptr, int j, size_t k)
 {
-    char* m = i;
+    char *temp = malloc(sizeof(char) * (my_strlen(ptr) + 1));
 
-    while (k--)
-        *m++ = (unsigned char)j;
-    return (i);
+    for (int i = 0; i < k; i++)
+        temp[i] = j;
+    return (temp);
 }

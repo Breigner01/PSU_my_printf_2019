@@ -1,72 +1,64 @@
 /*
 ** EPITECH PROJECT, 2019
-** my_put_nbr
+** my_put_hexa
 ** File description:
-** displays the number given as parameter
+** change a decimal number into an hexadecimal number
 */
 
-void my_putchar(char c);
-int swap_numbers(int nb, int nb_1, int count);
-int disp_numbers(int nb_1, int count);
-int perfect_number(void);
+#include <stdint.h>
+#include <inttypes.h>
+#include <stdlib.h>
+#include "my.h"
 
-int my_put_nbr(int nb)
+char over_ten(char c, int letter)
 {
-    int nb_1 = 0;
-    int count = 0;
-
-    if (nb < 0){
-        my_putchar('-');
-        if (nb == -2147483648)
-            perfect_number();
-        nb *= (-1);
-        swap_numbers(nb, nb_1, count);
-    }
-    if (nb >= 0 && nb < 10)
-        my_putchar(nb + 48);
-    if (nb >= 10){
-        swap_numbers(nb, nb_1, count);
-    }
-    return (0);
+    if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') ||
+        (c >= 'a' && c <= 'f'))
+        return (c);
+    else
+        return (c + letter);
 }
 
-int swap_numbers(int nb, int nb_1, int count)
+void my_put_hexa(uint64_t nb, int letter)
 {
-    while (nb > 0){
-        nb_1 *= 10;
-        nb_1 = nb_1 + nb % 10;
-        if (nb_1 == 0)
-            count++;
-        nb = nb - (nb % 10);
-        nb /= 10;
+    int i = 0;
+    int j = 0;
+    uint64_t hexa_pow = 1;
+    char *hexa_nb;
+
+    for (; (hexa_pow * 16) <= nb; i++)
+        hexa_pow *= 16;
+    hexa_nb = malloc(sizeof(char) * (i + 2));
+    for (; j <= i; j++)
+        hexa_nb[j] = '0';
+    j = 0;
+    while (j <= i) {
+        if (nb >= hexa_pow) {
+            nb -= hexa_pow;
+            hexa_nb[j] += 1;
+            hexa_nb[j] = over_ten(hexa_nb[j], letter);
+        } else {
+            hexa_pow /= 16;
+            j++;
+        }
     }
-    disp_numbers(nb_1, count);
-    return (0);
+    hexa_nb[j] = '\0';
+    my_putstr(hexa_nb);
+    free(hexa_nb);
 }
 
-int disp_numbers(int nb_1, int count)
+void my_put_hexa_min(uint64_t nb)
 {
-    while (nb_1 > 0){
-        my_putchar((nb_1 % 10) + 48);
-        nb_1 = nb_1 - (nb_1 % 10);
-        nb_1 /= 10;
-    }
-    for (int i = 0; i < count; i++)
-        my_putchar('0');
-    return (0);
+    my_put_hexa(nb, 39);
 }
 
-int perfect_number(void)
+void my_put_hexa_maj(uint64_t nb)
 {
-    my_putchar('2');
-    my_putchar('1');
-    my_putchar('4');
-    my_putchar('7');
-    my_putchar('4');
-    my_putchar('8');
-    my_putchar('3');
-    my_putchar('6');
-    my_putchar('4');
-    my_putchar('8');
-    return (0);
+    my_put_hexa(nb, 7);
+}
+
+void my_put_address(uint64_t nb)
+{
+    my_putstr("0x");
+    my_put_hexa(nb, 39);
 }

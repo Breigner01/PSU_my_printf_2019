@@ -5,6 +5,8 @@
 ## make
 ##
 
+CPPFLAGS=	-I ../../include/
+
 SRC	=	my_compute_power_rec.c   	\
 		my_compute_square_root.c 	\
 		my_find_prime_sup.c      	\
@@ -38,7 +40,15 @@ SRC	=	my_compute_power_rec.c   	\
 		my_strdup.c 				\
 		my_memset.c 				\
 		sum_stdarg.c 				\
-		disp_stdarg.c
+		disp_stdarg.c				\
+		my_printf.c					\
+		my_put_binary.c				\
+		my_put_hexa.c				\
+		my_put_long.c				\
+		my_put_long_long.c			\
+		my_put_octal.c				\
+		my_put_unsigned_int.c		\
+		my_put_unprintable.c
 
 OBJ	=	$(SRC:.c=.o)
 

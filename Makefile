@@ -9,6 +9,7 @@ CPPFLAGS=	-I include/
 CFLAGS	=	-Wall -Wextra
 LDFLAGS =	-L lib/my/ -lmy
 UTFLAGS =	-lcriterion --coverage
+DBGFLAGS=	-ggdb -g3
 
 SRC	=	tests/test_my_printf.c  \
 
@@ -18,7 +19,17 @@ NAME	=	unit_tests
 
 all:	$(NAME)
 
-$(NAME): $(OBJ)
+$(NAME):
+	make -C lib/my/
+
+tests_run: $(OBJ)
+	make -C lib/my/
+	gcc -o $(NAME) $(OBJ) $(LDFLAGS) $(UTFLAGS)
+	./$(NAME)
+	gcovr --branches --exclude tests/
+
+debug: CFLAGS += $(DBGFLAGS)
+debug: $(OBJ)
 	make -C lib/my/
 	gcc -o $(NAME) $(OBJ) $(LDFLAGS) $(UTFLAGS)
 	./$(NAME)
