@@ -212,3 +212,53 @@ Test (my_printf, prints_long_hexa_maj)
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
+
+Test (my_printf, prints_shortd)
+{
+    char *str;
+
+    asprintf(&str, "%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768);
+    my_printf("%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_shorti)
+{
+    char *str;
+
+    asprintf(&str, "%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768);
+    my_printf("%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_short_octal)
+{
+    char *str;
+
+    asprintf(&str, "%ho\n%ho\n%ho\n", 42, 69, 32767);
+    my_printf("%ho\n%ho\n%ho\n", 42, 69, 32767);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_short_hexa_min)
+{
+    char *str;
+
+    asprintf(&str, "%hx\n%hx\n%hx\n", 42, 69, 32767);
+    my_printf("%hx\n%hx\n%hx\n", 42, 69, 32767);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_short_hexa_maj)
+{
+    char *str;
+
+    asprintf(&str, "%hX\n%hX\n%hX\n", 42, 69, 32767);
+    my_printf("%hX\n%hX\n%hX\n", 42, 69, 32767);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}

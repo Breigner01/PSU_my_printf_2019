@@ -46,30 +46,35 @@ void long_flags(char **tab, int *i, va_list arg)
     }
 }
 
-void flag_correspondance(char **tab, void (*fun_ptr[])(), int *i, va_list arg)
+void parser(char **tab, void (*fun_ptr[])(), int j[], va_list arg)
 {
-    int j = 0;
-
-    while (tab[0][*i] != tab[1][j] && tab[1][j] != '\0')
-        j++;
-    switch (tab[1][j]) {
+    switch (tab[1][j[1]]) {
     case '\0':
-        my_putchar(tab[0][*i]);
+        my_putchar(tab[0][j[0]]);
         return;
     case 'l':
-        long_flags(tab, i, arg);
+        long_flags(tab, j[0], arg);
         return;
     case 'h':
-        short_flags(tab, i, arg);
+        short_flags(tab, j[0], arg);
         return;
     case 'm':
         my_putstr(strerror(errno));
         return;
     default:
-        fun_ptr[j](va_arg(arg, void *));
-        (*i)++;
+        fun_ptr[j[1]](va_arg(arg, void *));
+        j[0]++;
         return;
     }
+}
+
+void flag_correspondance(char **tab, void (*fun_ptr[])(), int *i, va_list arg)
+{
+    int j[2] = {*i, 0};
+
+    while (tab[0][*i] != tab[1][j[1]] && tab[1][j[1]] != '\0')
+        j[1]++;
+    parser(tab, fun_ptr, j, arg);
 }
 
 void my_printf(char *str, ...)
