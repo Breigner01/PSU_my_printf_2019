@@ -17,18 +17,10 @@ SRC	=	my_compute_power_rec.c   	\
 		my_put_nbr.c 				\
 		my_putstr.c 				\
 		my_revstr.c 				\
-		my_showmem.c 				\
-		my_showstr.c 				\
-		my_sort_int_array.c 		\
 		my_strcapitalize.c 			\
 		my_strcat.c 				\
 		my_strcmp.c 				\
 		my_strcpy.c 				\
-		my_str_isalpha.c 			\
-		my_str_islower.c 			\
-		my_str_isnum.c 				\
-		my_str_isprintable.c 		\
-		my_str_isupper.c 			\
 		my_strlen.c 				\
 		my_strlowcase.c 			\
 		my_strncat.c 				\
@@ -48,7 +40,10 @@ SRC	=	my_compute_power_rec.c   	\
 		my_put_long_long.c			\
 		my_put_octal.c				\
 		my_put_unsigned_int.c		\
-		my_put_unprintable.c
+		my_put_unsigned_long.c		\
+		my_put_unprintable.c		\
+		my_put_short.c				\
+		my_put_unsigned_short.c
 
 OBJ	=	$(SRC:.c=.o)
 

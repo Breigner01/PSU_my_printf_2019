@@ -55,7 +55,10 @@ void my_put_address(uint64_t);
 void my_put_long(long);
 void my_put_long_long(long long);
 void my_put_unsigned_int(unsigned int);
+void my_put_unsigned_long(unsigned long);
 void my_put_octal(uint64_t);
 void my_put_unprintable(char *);
+void my_put_short(short);
+void my_put_unsigned_short(short);
 
 #endif

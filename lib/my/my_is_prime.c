@@ -33,4 +33,5 @@ int my_sqrt(int nb)
         if (square > nb)
             return (i - 1);
     }
+    return (0);
 }

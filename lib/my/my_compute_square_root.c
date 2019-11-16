@@ -27,4 +27,5 @@ int result(int nb, int square, int i)
         return (i);
     if (square > nb)
         return (-1);
+    return (0);
 }

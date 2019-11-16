@@ -15,9 +15,7 @@ char *my_revstr(char *);
 void disp_numbers(int nb, int sign)
 {
     char *nb_str = malloc(sizeof(char) * 11);
-    char c;
     int i = 0;
-    int j = 0;
 
     while (nb != 0) {
         nb_str[i] = (nb % (10 * sign)) * sign + '0';

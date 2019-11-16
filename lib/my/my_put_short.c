@@ -12,9 +12,9 @@ void my_putchar(char);
 void my_putstr(char *);
 char *my_revstr(char *);
 
-void disp_long(long nb, int sign)
+void disp_short(short nb, int sign)
 {
-    char *nb_str = malloc(sizeof(char) * 20);
+    char *nb_str = malloc(sizeof(char) * 6);
     int i = 0;
 
     while (nb != 0) {
@@ -28,17 +28,18 @@ void disp_long(long nb, int sign)
     free(nb_str);
 }
 
-void my_put_long(long nb)
+void my_put_short(short nb)
 {
-    if (nb < 0 && nb > -10) {
+    if (nb < 0 && nb > -10){
         my_putchar('-');
         my_putchar(nb * -1 + '0');
     } else if (nb <= -10) {
         my_putchar('-');
-        disp_long(nb, -1);
+        disp_short(nb, -1);
     }
     if (nb >= 0 && nb < 10)
         my_putchar(nb + '0');
-    else if (nb >= 10)
-        disp_long(nb, 1);
+    else if (nb >= 10){
+        disp_short(nb, 1);
+    }
 }

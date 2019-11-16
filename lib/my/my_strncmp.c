@@ -13,6 +13,7 @@ int checking(char const *s1, char const *s2, int i)
         else
             return (1);
     }
+    return (0);
 }
 
 int my_strncmp(char const *s1, char const *s2, int n)
@@ -28,4 +29,5 @@ int my_strncmp(char const *s1, char const *s2, int n)
         else if (s1[i] < s2[i])
             return (-1);
     }
+    return (0);
 }

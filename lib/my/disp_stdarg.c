@@ -11,7 +11,7 @@ void my_putchar(char);
 void my_putstr(char *);
 void my_put_nbr(int);
 
-int disp_stdarg(char *s, ...)
+void disp_stdarg(char *s, ...)
 {
     int i = 0;
     va_list arg;

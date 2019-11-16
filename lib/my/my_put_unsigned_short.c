@@ -1,20 +1,19 @@
 /*
 ** EPITECH PROJECT, 2019
-** my_put_nbr
+** my_put_short
 ** File description:
-** displays the number given as parameter
+** prints a short int
 */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 void my_putchar(char);
 void my_putstr(char *);
 char *my_revstr(char *);
 
-void disp_uint(unsigned int nb)
+void disp_ushort(unsigned short nb)
 {
-    char *nb_str = malloc(sizeof(char) * 11);
+    char *nb_str = malloc(sizeof(char) * 6);
     int i = 0;
 
     while (nb != 0) {
@@ -28,11 +27,11 @@ void disp_uint(unsigned int nb)
     free(nb_str);
 }
 
-void my_put_unsigned_int(unsigned int nb)
+void my_put_unsigned_short(unsigned short nb)
 {
     if (nb < 10)
         my_putchar(nb + '0');
     else if (nb >= 10){
-        disp_uint(nb);
+        disp_ushort(nb);
     }
 }
