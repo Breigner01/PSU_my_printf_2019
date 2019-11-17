@@ -56,7 +56,7 @@ clean:
 	make clean -C lib/my/
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) libmy.a
 	make fclean -C lib/my/
 
 re: fclean all
