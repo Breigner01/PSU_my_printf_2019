@@ -30,15 +30,11 @@ void disp_long_long(long long nb, int sign)
 
 void my_put_long_long(long long nb)
 {
-    if (nb < 0 && nb > -10) {
-        my_putchar('-');
-        my_putchar(nb * -1 + '0');
-    } else if (nb <= -10) {
+    if (nb < 0) {
         my_putchar('-');
         disp_long_long(nb, -1);
-    }
-    if (nb >= 0 && nb < 10)
-        my_putchar(nb + '0');
-    else if (nb >= 10)
+    } else if (nb > 0)
         disp_long_long(nb, 1);
+    else
+        my_putchar('0');
 }

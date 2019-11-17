@@ -26,8 +26,8 @@ Test (my_printf, prints_int_i)
 {
     char *str;
 
-    asprintf(&str, "%i\n%i\n%i\n%i\n", 42, 69, -2147483648, 2147483647);
-    my_printf("%i\n%i\n%i\n%i\n", 42, 69, -2147483648, 2147483647);
+    asprintf(&str, "%i\n%i\n%i\n%i\n%i\n", 42, 69, -2147483648, 2147483647, 0);
+    my_printf("%i\n%i\n%i\n%i\n%i\n", 42, 69, -2147483648, 2147483647, 0);
     cr_assert_stdout_eq_str(str, "Got [%s]\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -36,8 +36,8 @@ Test (my_printf, prints_int_d)
 {
     char *str;
 
-    asprintf(&str, "%d\n%d\n%d\n%d\n", 22, 54, -2147483648, 2147483647);
-    my_printf("%d\n%d\n%d\n%d\n", 22, 54, -2147483648, 2147483647);
+    asprintf(&str, "%d\n%d\n%d\n%d\n%d\n", 22, 54, -2147483648, 2147483647, 0);
+    my_printf("%d\n%d\n%d\n%d\n%d\n", 22, 54, -2147483648, 2147483647, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected[%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -97,20 +97,29 @@ Test (my_printf, prints_adress)
     char *str = malloc(sizeof(char) * 12);
     char *strp;
 
-    str = "Hello World!";
     asprintf(&strp, "%p\n", str);
     my_printf("%p\n", str);
-    cr_assert_stdout_eq_str(strp, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, strp);
+    cr_assert_stdout_eq_str(strp, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
     free(strp);
+}
+
+Test (my_printf, prints_short)
+{
+    char *str;
+
+    asprintf(&str, "%hd\n%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768, 0);
+    my_printf("%h\n%h\n%h\n%h\n%h\n", 42, 69, 32767, -32768, 0);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
 }
 
 Test (my_printf, prints_long)
 {
     char *str;
 
-    asprintf(&str, "%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807);
-    my_printf("%l\n%l\n%l\n%l\n", 42, 69, 9223372036854775807, -9223372036854775807);
+    asprintf(&str, "%ld\n%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
+    my_printf("%l\n%l\n%l\n%l\n%l\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -119,8 +128,8 @@ Test (my_printf, prints_long_long)
 {
     char *str;
 
-    asprintf(&str, "%lld\n%lld\n%lld\n%lld\n", 42, 69, 9223372036854775807, -9223372036854775807);
-    my_printf("%ll\n%ll\n%ll\n%ll\n", 42, 69, 9223372036854775807, -9223372036854775807);
+    asprintf(&str, "%lld\n%lld\n%lld\n%lld\n%lld\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
+    my_printf("%ll\n%ll\n%ll\n%ll\n%ll\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -129,8 +138,8 @@ Test (my_printf, prints_long_long_q)
 {
     char *str;
 
-    asprintf(&str, "%qd\n%qd\n%qd\n%qd\n", 42, 69, 9223372036854775807, -9223372036854775807);
-    my_printf("%q\n%q\n%q\n%q\n", 42, 69, 9223372036854775807, -9223372036854775807);
+    asprintf(&str, "%qd\n%qd\n%qd\n%qd\n%qd\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
+    my_printf("%q\n%q\n%q\n%q\n%q\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -167,8 +176,8 @@ Test (my_printf, prints_longd)
 {
     char *str;
 
-    asprintf(&str, "%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807);
-    my_printf("%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807);
+    asprintf(&str, "%ld\n%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
+    my_printf("%ld\n%ld\n%ld\n%ld\n%ld\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -177,8 +186,8 @@ Test (my_printf, prints_longi)
 {
     char *str;
 
-    asprintf(&str, "%li\n%li\n%li\n%li\n", 42, 69, 9223372036854775807, -9223372036854775807);
-    my_printf("%li\n%li\n%li\n%li\n", 42, 69, 9223372036854775807, -9223372036854775807);
+    asprintf(&str, "%li\n%li\n%li\n%li\n%li\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
+    my_printf("%li\n%li\n%li\n%li\n%li\n", 42, 69, 9223372036854775807, -9223372036854775807, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -217,8 +226,8 @@ Test (my_printf, prints_shortd)
 {
     char *str;
 
-    asprintf(&str, "%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768);
-    my_printf("%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768);
+    asprintf(&str, "%hd\n%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768, 0);
+    my_printf("%hd\n%hd\n%hd\n%hd\n%hd\n", 42, 69, 32767, -32768, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -227,8 +236,8 @@ Test (my_printf, prints_shorti)
 {
     char *str;
 
-    asprintf(&str, "%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768);
-    my_printf("%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768);
+    asprintf(&str, "%hi\n%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768, 0);
+    my_printf("%hi\n%hi\n%hi\n%hi\n%hi\n", 42, 69, 32767, -32768, 0);
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }
@@ -259,6 +268,46 @@ Test (my_printf, prints_short_hexa_maj)
 
     asprintf(&str, "%hX\n%hX\n%hX\n", 42, 69, 32767);
     my_printf("%hX\n%hX\n%hX\n", 42, 69, 32767);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_modulo)
+{
+    char *str;
+
+    asprintf(&str, "This is a modulo: %%\n");
+    my_printf("This is a modulo: %%\n");
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_ulong)
+{
+    char *str;
+
+    asprintf(&str, "%lu\n%lu\n%lu\n", 42, 69, 18446744073709551615);
+    my_printf("%lu\n%lu\n%lu\n", 42, 69, 18446744073709551615);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_ushort)
+{
+    char *str;
+
+    asprintf(&str, "%hu\n%hu\n%hu\n", 42, 69, 65535);
+    my_printf("%hu\n%hu\n%hu\n", 42, 69, 65535);
+    cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
+    free(str);
+}
+
+Test (my_printf, prints_error)
+{
+    char *str;
+
+    asprintf(&str, "%m\n");
+    my_printf("%m\n");
     cr_assert_stdout_eq_str(str, "Got [%s].\nBut expected [%s].\n", cr_redirect_stdout, str);
     free(str);
 }

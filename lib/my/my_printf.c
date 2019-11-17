@@ -46,25 +46,26 @@ void long_flags(char **tab, int *i, va_list arg)
     }
 }
 
-void parser(char **tab, void (*fun_ptr[])(), int j[], va_list arg)
+int parser(char **tab, void (*fun_ptr[])(), int (*j)[], va_list arg)
 {
-    switch (tab[1][j[1]]) {
+    switch (tab[1][(*j)[1]]) {
     case '\0':
-        my_putchar(tab[0][j[0]]);
-        return;
+        return (-1);
+    case '%':
+        my_putchar(tab[0][(*j)[0]]);
+        return ((*j)[0]);
     case 'l':
-        long_flags(tab, j[0], arg);
-        return;
+        long_flags(tab, &(*j)[0], arg);
+        return ((*j)[0]);
     case 'h':
-        short_flags(tab, j[0], arg);
-        return;
+        short_flags(tab, &(*j)[0], arg);
+        return ((*j)[0]);
     case 'm':
         my_putstr(strerror(errno));
-        return;
+        return ((*j)[0] + 1);
     default:
-        fun_ptr[j[1]](va_arg(arg, void *));
-        j[0]++;
-        return;
+        fun_ptr[(*j)[1]](va_arg(arg, void *));
+        return ((*j)[0] + 1);
     }
 }
 
@@ -74,13 +75,12 @@ void flag_correspondance(char **tab, void (*fun_ptr[])(), int *i, va_list arg)
 
     while (tab[0][*i] != tab[1][j[1]] && tab[1][j[1]] != '\0')
         j[1]++;
-    parser(tab, fun_ptr, j, arg);
+    (*i) = parser(tab, fun_ptr, &j, arg);
 }
 
-void my_printf(char *str, ...)
+int my_printf(char *str, ...)
 {
-    int i = 0;
-    char *tab[4] = {str, "diouxXsplqbSh", "diouxXl", "diouxXh"};
+    char *tab[4] = {str, "diouxXsplqbShm%", "diouxXl", "diouxXh"};
     void (*fun_ptr[])() = {my_put_nbr, my_put_nbr, my_put_octal,
     my_put_unsigned_int, my_put_hexa_min, my_put_hexa_maj, my_putstr,
     my_put_address, long_flags, my_put_long_long, my_put_binary,
@@ -88,7 +88,7 @@ void my_printf(char *str, ...)
     va_list arg;
 
     va_start(arg, str);
-    while (str[i] != '\0') {
+    for (int i = 0; str[i] != '\0';) {
         if (str[i] == '%') {
             i++;
             flag_correspondance(tab, fun_ptr, &i, arg);
@@ -96,6 +96,8 @@ void my_printf(char *str, ...)
             my_putchar(str[i]);
             i++;
         }
+        if (i == -1)
+            return (-1);
     }
     va_end(arg);
 }

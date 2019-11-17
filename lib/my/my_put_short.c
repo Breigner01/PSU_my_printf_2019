@@ -30,16 +30,11 @@ void disp_short(short nb, int sign)
 
 void my_put_short(short nb)
 {
-    if (nb < 0 && nb > -10){
-        my_putchar('-');
-        my_putchar(nb * -1 + '0');
-    } else if (nb <= -10) {
+    if (nb < 0) {
         my_putchar('-');
         disp_short(nb, -1);
-    }
-    if (nb >= 0 && nb < 10)
-        my_putchar(nb + '0');
-    else if (nb >= 10){
+    } else if (nb > 0)
         disp_short(nb, 1);
-    }
+    else
+        my_putchar('0');
 }

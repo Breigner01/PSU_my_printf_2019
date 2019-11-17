@@ -8,11 +8,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void my_putchar(char);
 void my_putstr(char *);
 char *my_revstr(char *);
 
-void disp_ulong(unsigned long nb)
+void my_put_unsigned_long(unsigned long nb)
 {
     char *nb_str = malloc(sizeof(char) * 20);
     int i = 0;
@@ -26,13 +25,4 @@ void disp_ulong(unsigned long nb)
     nb_str = my_revstr(nb_str);
     my_putstr(nb_str);
     free(nb_str);
-}
-
-void my_put_unsigned_long(unsigned long nb)
-{
-    if (nb < 10)
-        my_putchar(nb + '0');
-    else if (nb >= 10){
-        disp_ulong(nb);
-    }
 }

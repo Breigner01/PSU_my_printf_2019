@@ -12,7 +12,7 @@ void my_putchar(char);
 void my_putstr(char *);
 char *my_revstr(char *);
 
-void disp_uint(unsigned int nb)
+void my_put_unsigned_int(unsigned int nb)
 {
     char *nb_str = malloc(sizeof(char) * 11);
     int i = 0;
@@ -26,13 +26,4 @@ void disp_uint(unsigned int nb)
     nb_str = my_revstr(nb_str);
     my_putstr(nb_str);
     free(nb_str);
-}
-
-void my_put_unsigned_int(unsigned int nb)
-{
-    if (nb < 10)
-        my_putchar(nb + '0');
-    else if (nb >= 10){
-        disp_uint(nb);
-    }
 }

@@ -10,39 +10,39 @@
 #include <stdlib.h>
 #include "my.h"
 
-char over_ten(char c, int letter)
+void hexa_fill(uint64_t *nb, uint64_t *hexa_pow, char **hexa_nb, int (*j)[2])
 {
-    if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') ||
-        (c >= 'a' && c <= 'f'))
-        return (c);
-    else
-        return (c + letter);
+    char c;
+
+    if ((*nb) >= (*hexa_pow)) {
+        (*nb) -= (*hexa_pow);
+        (*hexa_nb)[(*j)[0]] += 1;
+        c = (*hexa_nb)[(*j)[0]];
+        if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') ||
+            (c >= 'a' && c <= 'f')))
+            (*hexa_nb)[(*j)[0]] += (*j)[1];
+    } else {
+        (*hexa_pow) /= 16;
+        (*j)[0]++;
+    }
 }
 
 void my_put_hexa(uint64_t nb, int letter)
 {
     int i = 0;
-    int j = 0;
+    int j[2] = {0, letter};
     uint64_t hexa_pow = 1;
     char *hexa_nb;
 
     for (; (hexa_pow * 16) <= nb; i++)
         hexa_pow *= 16;
     hexa_nb = malloc(sizeof(char) * (i + 2));
-    for (; j <= i; j++)
-        hexa_nb[j] = '0';
-    j = 0;
-    while (j <= i) {
-        if (nb >= hexa_pow) {
-            nb -= hexa_pow;
-            hexa_nb[j] += 1;
-            hexa_nb[j] = over_ten(hexa_nb[j], letter);
-        } else {
-            hexa_pow /= 16;
-            j++;
-        }
-    }
-    hexa_nb[j] = '\0';
+    for (; j[0] <= i; j[0]++)
+        hexa_nb[j[0]] = '0';
+    j[0] = 0;
+    while (j[0] <= i)
+        hexa_fill(&nb, &hexa_pow, &hexa_nb, &j);
+    hexa_nb[j[0]] = '\0';
     my_putstr(hexa_nb);
     free(hexa_nb);
 }

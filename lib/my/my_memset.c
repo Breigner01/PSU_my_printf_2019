@@ -10,11 +10,8 @@
 
 int my_strlen(char *);
 
-void *my_memset(void *ptr, int j, size_t k)
+void my_memset(char *str, int j, size_t k)
 {
-    char *temp = malloc(sizeof(char) * (my_strlen(ptr) + 1));
-
     for (size_t i = 0; i < k; i++)
-        temp[i] = j;
-    return (temp);
+        str[i] = j;
 }
